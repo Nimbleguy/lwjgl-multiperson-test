@@ -47,7 +47,7 @@ public class Main{
 		rend = new Render();
 		rend.add(new RenderTaskClear());
 		while(!glfwWindowShouldClose(win)){
-			rend.render(win);
+			rend.render(win); // Render loop.
 		}
 	}
 
