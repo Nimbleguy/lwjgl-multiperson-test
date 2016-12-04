@@ -10,9 +10,12 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
+
 	// The window handle
 	private long window;
 
+	String title = "a most tedious game";
+	
 	public void run() {
 		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
@@ -44,18 +47,19 @@ public class Main {
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
-		int WIDTH = 300;
-		int HEIGHT = 300;
+		int WIDTH = 200;
+		int HEIGHT = 200;
 
 		// Create the window
-		window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL);
-		if ( window == NULL )
-			throw new RuntimeException("Failed to create the GLFW window");
+		window = glfwCreateWindow(WIDTH, HEIGHT, title, NULL, NULL);
+		if ( window == NULL ) throw new RuntimeException("Failed to create the GLFW window");
 
 		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
-		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-				glfwSetWindowShouldClose(window, true); // We will detect this in our rendering loop
+		glfwSetKeyCallback(window,new GLFWKeyCallback(){//was using lambda expressions, changed for java 1.7 support
+			@Override
+			public void invoke(long window, int key, int scancode, int action, int mods) {
+				if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )glfwSetWindowShouldClose(window, true);// We will detect this in our rendering loop
+			}			
 		});
 
 		// Get the resolution of the primary monitor
@@ -85,7 +89,7 @@ public class Main {
 		GL.createCapabilities();
 
 		// Set the clear color
-		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+		glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
 
 		// Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
@@ -102,5 +106,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		new Main().run();
+		//note that code after it will run after the window is closed. To change that, put new Main().run(); into a thread
 	}
 }
