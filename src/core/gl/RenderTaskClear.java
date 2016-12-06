@@ -1,7 +1,6 @@
 package core.gl;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.glfw.GLFW.*;
 
 public class RenderTaskClear implements IRenderTask{
 	public int priority(){
@@ -18,6 +17,5 @@ public class RenderTaskClear implements IRenderTask{
 
 	public void run(long window){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glfwSwapBuffers(window);
 	}
 }

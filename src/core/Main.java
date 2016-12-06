@@ -50,6 +50,7 @@ public class Main{
 		rend.add(new RenderTaskClear());
 		while(!glfwWindowShouldClose(win)){
 			rend.render(win); // Render loop.
+			glfwSwapBuffers(win);
 		}
 	}
 
