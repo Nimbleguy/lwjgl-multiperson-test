@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import java.util.List;
 import java.util.ArrayList;
 
+import static org.lwjgl.glfw.GLFW.*;
 import core.Main;
 
 public class Render{
@@ -12,6 +13,8 @@ public class Render{
 	private List<IRenderTask> ntask = new ArrayList<IRenderTask>();
 
 	public void render(long win){
+		glfwSwapBuffers(win);//this and below were added recently
+		glfwPollEvents();//without this, the window won't respond (i.e. no closing, no keypressing, etc.)
 		List<IRenderTask> rmn = new ArrayList<IRenderTask>();
 		for(IRenderTask t : ntask){
 			t.init();
