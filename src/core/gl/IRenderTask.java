@@ -5,4 +5,5 @@ public interface IRenderTask{
 	public boolean remove();
 	public void init();
 	public void run(long window);
+	public void destroy();
 }

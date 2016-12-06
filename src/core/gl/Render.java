@@ -34,6 +34,7 @@ public class Render{
 			for(IRenderTask t : tasks.get(i)){
 				t.run(win);
 				if(t.remove()){
+					t.destroy();
 					rem.put(i, t);
 				}
 			}
