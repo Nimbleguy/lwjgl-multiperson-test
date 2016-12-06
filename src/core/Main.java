@@ -14,13 +14,15 @@ public class Main{
 	private static Main main;
 	private Render rend;
 
+	private String title = "the gaem title";
+	
 	private Main(){
 		if(!glfwInit()){ // Start.
 			System.err.println("Error initializing glfw.");
 			System.exit(1);
 		}
 		setHints();
-		win = glfwCreateWindow(800, 600, "GLFW", NULL, NULL);
+		win = glfwCreateWindow(800, 600, title, NULL, NULL);
 		if(win == NULL){
 			System.err.println("Error with window init.");
 			System.exit(1);
