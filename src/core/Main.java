@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL;
 
 import core.gl.Render;
 import core.gl.RenderTaskClear;
+import core.gl.RenderTriangle;
 
 public class Main{
 	private long win;
@@ -48,6 +49,7 @@ public class Main{
 	private void start(){
 		rend = new Render();
 		rend.add(new RenderTaskClear());
+		rend.add(new RenderTriangle(0, ""));
 		while(!glfwWindowShouldClose(win)){
 			rend.render(win); // Render loop.
 			glfwSwapBuffers(win);
