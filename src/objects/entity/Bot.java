@@ -3,13 +3,13 @@ package objects.entity;
 import objects.maps.MapInterpreter;
 
 public class Bot extends Driver{
-
 	int[] destination = new int[2];
 	boolean reachedDestination;
 
 	MapInterpreter aiMap;
 
-	public Bot(MapInterpreter mi){
+	public Bot(MapInterpreter mi, ICar cart, double startX, double startY) {
+		super(cart, startX, startY);
 		aiMap = mi;
 	}
 
@@ -17,7 +17,7 @@ public class Bot extends Driver{
 		if (reachedDestination){
 			switch(aiMap.getDir((int)Math.round(x), (int)Math.round(y))){
 			case -1:
-				//TODO
+				//TODO (-1 means no data)
 				break;
 			case 0://N
 				destination[0]=(int)Math.round(x);
@@ -56,15 +56,15 @@ public class Bot extends Driver{
 			reachedDestination = false;
 		}
 
-		double angle = Math.toDegrees(Math.tan((destination[1]-y)/(destination[0]-x)));
-		double moveAngle = Math.min(maxTurnPerUpdate, Math.abs(angle));
+		double angle = Math.toDegrees(Math.atan((destination[1]-y)/(destination[0]-x)));
+		double moveAngle = Math.min(MAX_TURN_PER_UPDATE, Math.abs(angle));
 
 		if (angle<0){
 			moveAngle*=-1;
 		}
 
-		x+=momentum*Math.acos(Math.toRadians(moveAngle));
-		y+=momentum*Math.asin(Math.toRadians(moveAngle));
+		x+=momentum*Math.cos(Math.toRadians(moveAngle));
+		y+=momentum*Math.sin(Math.toRadians(moveAngle));
 
 		if (destination[0] == (int)(Math.round(x)) && destination[1] == (int)(Math.round(y))){
 			reachedDestination = true;
