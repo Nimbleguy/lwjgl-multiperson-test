@@ -46,7 +46,7 @@ $(JAR) : $(ARTIFACTS) $(CFILE) $(MANIFEST)
 	cp $(MANIFEST) $(BINDIR)/manifest
 	truncate -s-1 $(BINDIR)/manifest
 	printf "Class-Path: $(subst $(SPACE),$(SPACE)\n$(SPACE),$(wildcard $(LIBDIR)/*.jar))$(subst $(SPACE),$(SPACE)\n$(SPACE),$(wildcard $(JARDIR)/*.jar))\n" >> $(BINDIR)/manifest
-	jar cmf $(BINDIR)/manifest $(JAR) $(patsubst $(BINDIR)/%,-C $(BINDIR) %,$(CFILE))
+	cd $(BINDIR) && jar cvmf manifest $(JAR) * && mv $(JAR) ../$(JAR)
 
 $(BINDIR)/%.class : $(SRCDIR)/%.java $(SRCDIR) $(BINDIR) $(ARTIFACTS)
 	javac -d $(BINDIR) -cp ".:$(LIBDIR)/*:$(BINDIR):$(SRCDIR)" $<

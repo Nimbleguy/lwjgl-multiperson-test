@@ -18,9 +18,9 @@ public class Main{
 	private Render rend;
 
 	private String title = "the gaem title";
-	
+
 	private GLFWKeyCallback keyCallback;
-	
+
 	private Main(){
 		if(!glfwInit()){ // Start.
 			System.err.println("Error initializing glfw.");
