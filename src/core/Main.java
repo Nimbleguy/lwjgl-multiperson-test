@@ -4,6 +4,9 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL;
 
@@ -11,6 +14,7 @@ import core.gl.Render;
 import core.gl.RenderTaskClear;
 import core.gl.RenderTriangle;
 import events.Event;
+import events.Listener;
 
 public class Main{
 	private long win;
@@ -21,6 +25,8 @@ public class Main{
 
 	private GLFWKeyCallback keyCallback;
 
+	private static List<Listener> listeners = new ArrayList<Listener>();
+	
 	private Main(){
 		if(!glfwInit()){ // Start.
 			System.err.println("Error initializing glfw.");
@@ -59,6 +65,17 @@ public class Main{
 			rend.render(win); // Render loop.
 			glfwSwapBuffers(win);
 		}
+	}
+	
+	public static List<Listener> getListeners(){
+		return listeners;
+	}
+	
+	public static void registerListener(Listener listener){
+		listeners.add(listener);
+	}
+	public static void unregisterListner(Listener listener){
+		listeners.remove(listener);
 	}
 
 	public static void main(String[] args){
