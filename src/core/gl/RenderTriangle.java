@@ -7,6 +7,10 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.nio.ByteBuffer;
 
+import java.io.File;
+
+import core.Utilities;
+
 public class RenderTriangle implements IRenderTask{
 
 	private final double[] indicies = new double[] {-1d, -1d, 0d, 1d, -1d, 0d, 0d, 1d, 0d};
@@ -16,8 +20,11 @@ public class RenderTriangle implements IRenderTask{
 	private int vao = -1;
 	private int vboI = -1;
 
+	private Shader shader;
+
 	public RenderTriangle(int p, String path){
 		prior = p;
+		shader = new Shader(Utilities.getAsset("glsl/generic.vert"), Utilities.getAsset("glsl/generic.frag"));
 	}
 
 	public int priority(){
