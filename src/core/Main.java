@@ -4,11 +4,13 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL;
 
 import core.gl.Render;
 import core.gl.RenderTaskClear;
 import core.gl.RenderTriangle;
+import events.Event;
 
 public class Main{
 	private long win;
@@ -16,6 +18,8 @@ public class Main{
 	private Render rend;
 
 	private String title = "the gaem title";
+	
+	private GLFWKeyCallback keyCallback;
 	
 	private Main(){
 		if(!glfwInit()){ // Start.
@@ -47,6 +51,7 @@ public class Main{
 	}
 
 	private void start(){
+		glfwSetKeyCallback(win, keyCallback = new KeyboardHandler());
 		rend = new Render();
 		rend.add(new RenderTaskClear());
 		rend.add(new RenderTriangle(0, ""));
@@ -57,6 +62,12 @@ public class Main{
 	}
 
 	public static void main(String[] args){
+		KeyboardHandler.registerKeyListener(GLFW_KEY_W,new events.Listener(){//keylistener example
+			@Override
+			public void listen(Event e) {
+				System.out.println(((events.KeyEvent)e).isPressed());
+			}
+		});
 		main = new Main();
 	}
 }
