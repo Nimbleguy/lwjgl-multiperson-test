@@ -42,13 +42,13 @@ ivy.jar :
 	mv apache-ivy-2.4.0/ivy-2.4.0.jar ./ivy.jar
 	rm -rf apache-ivy-2.4.0 apache-ivy-2.4.0-bin.zip
 
-$(JAR) : $(ARTIFACTS) $(CFILE) $(MANIFEST)
+$(JAR) : $(ARTIFACTS) $(BINDIR) $(CFILE) $(MANIFEST)
 	cp $(MANIFEST) $(BINDIR)/manifest
 	truncate -s-1 $(BINDIR)/manifest
 	printf "Class-Path: $(subst $(SPACE),$(SPACE)\n$(SPACE),$(wildcard $(LIBDIR)/*.jar))$(subst $(SPACE),$(SPACE)\n$(SPACE),$(wildcard $(JARDIR)/*.jar))\n" >> $(BINDIR)/manifest
 	cd $(BINDIR) && jar cvmf manifest $(JAR) * && mv $(JAR) ../$(JAR)
 
-$(BINDIR)/%.class : $(SRCDIR)/%.java $(SRCDIR) $(BINDIR) $(ARTIFACTS)
+$(BINDIR)/%.class : $(SRCDIR)/%.java $(ARTIFACTS)
 	javac -d $(BINDIR) -cp ".:$(LIBDIR)/*:$(BINDIR):$(SRCDIR)" $<
 
 run : $(JAR)

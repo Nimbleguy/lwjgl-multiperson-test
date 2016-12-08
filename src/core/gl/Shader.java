@@ -79,7 +79,7 @@ public class Shader{
 			try{
 				glLinkProgram(pid);
 				programl.put(new String[] {vertex, fragment}, pid);
-				assert glGetShaderi(pid, GL_COMPILE_STATUS) != GL_FALSE;
+				assert glGetProgrami(pid, GL_LINK_STATUS) != GL_FALSE;
 			}
 			catch(Exception e){
 				e.printStackTrace();
