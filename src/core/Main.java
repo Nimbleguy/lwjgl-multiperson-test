@@ -28,7 +28,7 @@ public class Main{
 	private GLFWCursorPosCallback mouseCallback;
 
 	private static List<Listener> listeners = new ArrayList<Listener>();
-	
+
 	private Main(){
 		if(!glfwInit()){ // Start.
 			System.err.println("Error initializing glfw.");
@@ -69,11 +69,11 @@ public class Main{
 			glfwSwapBuffers(win);
 		}
 	}
-	
+
 	public static List<Listener> getListeners(){
 		return listeners;
 	}
-	
+
 	public static void registerListener(Listener listener){
 		listeners.add(listener);
 	}

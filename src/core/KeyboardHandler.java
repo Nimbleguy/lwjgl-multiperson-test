@@ -16,7 +16,7 @@ public class KeyboardHandler extends GLFWKeyCallback{
 
 	public static boolean[] keys = new boolean[65536];
 	private static HashMap<Integer,HashMap<Integer,ArrayList<Listener>>> listeners = new HashMap<Integer,HashMap<Integer,ArrayList<Listener>>>();// HashMap<key, HashMap<Priority, Listener> >
-	
+
 	@Override
 	public void invoke(long window, int key, int scancode, int action, int mods) {
 		if (keys[key] != (action!=GLFW_RELEASE)){//if key changed
@@ -28,7 +28,7 @@ public class KeyboardHandler extends GLFWKeyCallback{
 	public static boolean isKeyDown(int keycode) {
 		return keys[keycode];
 	}
-	
+
 	public static void registerKeyListener(int keyNum, Listener l){
 		try{
 			Method m = l.getClass().getMethod("listen", Event.class);

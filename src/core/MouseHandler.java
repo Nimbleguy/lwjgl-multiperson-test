@@ -56,7 +56,7 @@ public class MouseHandler extends GLFWCursorPosCallback{
 			}
 		}catch (NoSuchMethodException | SecurityException e){e.printStackTrace();}//not possible?
 	}
-	
+
 	public static HashMap<Integer,ArrayList<Listener>> getListeners(){
 		return listeners;
 	}

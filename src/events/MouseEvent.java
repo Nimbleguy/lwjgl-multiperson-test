@@ -78,16 +78,16 @@ public class MouseEvent implements Event{
 	public void setPrevX(double x){
 		this.prevX = x;
 	}
-	
+
 	public void setPrevY(double y){
 		this.prevX = y;
 	}
-	
+
 	public void setCancelled(boolean c){
 		cancel = c;
 	}
-	
-	
+
+
 	public boolean isCancelled(){
 		return cancel;
 	}
@@ -99,11 +99,11 @@ public class MouseEvent implements Event{
 	public double getY(){
 		return y;
 	}
-	
+
 	public double getPrevX(){
 		return prevX;
 	}
-	
+
 	public double getPrevY(){
 		return prevY;
 	}
