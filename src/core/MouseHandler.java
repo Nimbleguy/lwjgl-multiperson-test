@@ -13,15 +13,15 @@ import events.MouseEvent.Priority;
 
 public class MouseHandler extends GLFWCursorPosCallback{
 
-	double x = -1;
-	double y = -1;
+	static double x = -1;
+	static double y = -1;
 	private static HashMap<Integer,ArrayList<Listener>> listeners = new HashMap<Integer,ArrayList<Listener>>();// HashMap<key, HashMap<Priority, Listener> >
 
 	@Override
 	public void invoke(long window, double xpos, double ypos) {
+		new MouseEvent(window,xpos,ypos,x,y).trigger();
 		x=xpos;
 		y=ypos;
-		new MouseEvent(window,xpos,ypos).trigger();
 	}
 
 	public static void registerMouseListener(Listener l){
@@ -55,5 +55,9 @@ public class MouseHandler extends GLFWCursorPosCallback{
 				}
 			}
 		}catch (NoSuchMethodException | SecurityException e){e.printStackTrace();}//not possible?
+	}
+	
+	public static HashMap<Integer,ArrayList<Listener>> getListeners(){
+		return listeners;
 	}
 }
