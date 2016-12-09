@@ -1,10 +1,8 @@
-package core;
+package entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.geom.Rectangle2D;
-
-import entity.Entity;
 
 public class CollisionBox{//a bunch of rectangles which make up a hitbox
 	List<RelRectangle2D> rectangles = new ArrayList<RelRectangle2D>();

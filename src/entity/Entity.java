@@ -3,7 +3,6 @@ package entity;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import core.CollisionBox;
 import events.CollisionEvent;
 
 public class Entity {
