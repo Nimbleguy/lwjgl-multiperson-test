@@ -7,6 +7,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL;
 
@@ -24,6 +25,7 @@ public class Main{
 	private String title = "the gaem title";
 
 	private GLFWKeyCallback keyCallback;
+	private GLFWCursorPosCallback mouseCallback;
 
 	private static List<Listener> listeners = new ArrayList<Listener>();
 	
@@ -58,9 +60,10 @@ public class Main{
 
 	private void start(){
 		glfwSetKeyCallback(win, keyCallback = new KeyboardHandler());
+		glfwSetCursorPosCallback(win, mouseCallback = new MouseHandler());
 		rend = new Render();
 		rend.add(new RenderTaskClear());
-		rend.add(new RenderTriangle(0, ""));
+		//rend.add(new RenderTriangle(0, ""));
 		while(!glfwWindowShouldClose(win)){
 			rend.render(win); // Render loop.
 			glfwSwapBuffers(win);
