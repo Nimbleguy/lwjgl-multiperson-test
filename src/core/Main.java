@@ -18,7 +18,7 @@ import events.Event;
 import events.Listener;
 
 public class Main{
-	private long win;
+	private final long win;
 	private static Main main;
 	private Render rend;
 
@@ -94,7 +94,7 @@ public class Main{
 			public void listen(Event e) {
 				if (((events.KeyEvent)e).isPressed()){
 					System.out.println("Terminating");
-					glfwSetWindowShouldClose(main.win,true);
+					glfwSetWindowShouldClose(Main.main.win,true);
 				}
 			}
 		});
