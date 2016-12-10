@@ -12,20 +12,39 @@ import java.io.File;
 
 import core.Utilities;
 
-public class RenderTriangle implements IRenderTask{
+public class RenderSprite implements IRenderTask{
 
-	private final float[] vertex = new float[] {-0.5f, 0.5f, 0f, -0.5f, -0.5f, 0f, 0.5f, -0.5f, 0f};
+	private float[] vertex = new float[] {-1f, 1f, 0f, 0f, -1f, -1f, 0f, 0f, 0.5f, -0.5f, 0f, 0f, 0.5f, 0.5f, 0f, 0f};
+	private final byte[] indicies = new byte[] {0, 1, 2, 2, 3, 0};
 
 	private final int prior;
 	//private final ByteBuffer image;
 	private int vao = -1;
-	private int vboI = -1;
+	private int vboV = -1;
 
 	private Shader shader;
 
-	public RenderTriangle(int p, String path){
+	public RenderSprite(int p, String path){
 		prior = p;
 		shader = new Shader(Utilities.getAsset("glsl/generic.vert"), Utilities.getAsset("glsl/generic.frag"));
+	}
+
+	public RenderSprite offset(float x, float y, float z, float w){
+		for(int i = 0; i < vertex.length; i++){
+			if((i + 1) % 4 == 0){
+				vertex[i] += w;
+			}
+			else if((i + 1) % 3 == 0){
+				vertex[i] += z;
+			}
+			else if((i + 1) % 2 == 0){
+				vertex[i] += y;
+			}
+			else{
+				vertex[i] += x;
+			}
+		}
+		return this;
 	}
 
 	public int priority(){
@@ -39,8 +58,8 @@ public class RenderTriangle implements IRenderTask{
 	public void init(){
 		vao = glGenVertexArrays();
 		glBindVertexArray(vao);
-		vboI = glGenBuffers();
-		glBindBuffer(GL_ARRAY_BUFFER, vboI);
+		vboV = glGenBuffers();
+		glBindBuffer(GL_ARRAY_BUFFER, vboV);
 		FloatBuffer buf = BufferUtils.createFloatBuffer(vertex.length);
 		buf.put(vertex).flip();
 		glBufferData(GL_ARRAY_BUFFER, buf, GL_STATIC_DRAW);
@@ -63,7 +82,7 @@ public class RenderTriangle implements IRenderTask{
 	public void destroy(){
 		glDisableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glDeleteBuffers(vboI);
+		glDeleteBuffers(vboV);
 		glBindVertexArray(0);
 		glDeleteVertexArrays(vao);
 		shader.destroy();
