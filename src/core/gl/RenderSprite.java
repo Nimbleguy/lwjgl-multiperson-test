@@ -81,7 +81,9 @@ public class RenderSprite implements IRenderTask{
 		glUseProgram(shader.getProgram());
 		glBindVertexArray(vao);
 		glEnableVertexAttribArray(0);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboI);
+		glDrawElements(GL_TRIANGLES, indicies.length, GL_UNSIGNED_BYTE, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glDisableVertexAttribArray(0);
 		glBindVertexArray(0);
 		glUseProgram(0);
@@ -91,6 +93,8 @@ public class RenderSprite implements IRenderTask{
 		glDisableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDeleteBuffers(vboV);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glDeleteBuffers(vboI);
 		glBindVertexArray(0);
 		glDeleteVertexArrays(vao);
 		shader.destroy();
