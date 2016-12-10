@@ -44,6 +44,7 @@ public class Main{
 		glfwMakeContextCurrent(win);
 		GL.createCapabilities(true);
 		glfwSwapInterval(1);
+		System.out.println(glGetString(GL_VERSION));
 		start();
 
 		glfwDestroyWindow(win);
@@ -53,7 +54,7 @@ public class Main{
 	private void setHints(){
 		glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	}
