@@ -3,7 +3,8 @@ package entity;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import events.CollisionEvent;
+import events.EntityCollisionEvent;
+import events.EntityMoveEvent;
 
 public class Entity {
 	private static List<Entity> entities;
@@ -26,12 +27,17 @@ public class Entity {
 		hitbox = box;
 	}
 
-	public boolean teleport(int x, int y, boolean ignoreCancelled){
-		boolean returnVal = true;
-		for (Entity e : entities){
-			if (hitbox.intersects(e.getHitbox())){
-				returnVal = returnVal && new CollisionEvent(this, e).trigger();
+	public boolean teleport(double x, double y, boolean ignoreCancelled){
+		boolean returnVal = new EntityMoveEvent(this,x,y).trigger();
+		if (returnVal){
+			for (Entity e : entities){
+				if (hitbox.intersects(e.getHitbox())){
+					returnVal = returnVal && new EntityCollisionEvent(this, e).trigger();
+				}
 			}
+		}
+		if (returnVal){
+			loc = new double[]{x,y};
 		}
 		return returnVal;
 	}
