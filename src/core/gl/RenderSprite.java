@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
+import java.nio.ByteBuffer;
 
 import java.io.File;
 
@@ -21,6 +22,7 @@ public class RenderSprite implements IRenderTask{
 	//private final ByteBuffer image;
 	private int vao = -1;
 	private int vboV = -1;
+	private int vboI = -1;
 
 	private Shader shader;
 
@@ -66,6 +68,12 @@ public class RenderSprite implements IRenderTask{
 		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+		vboI = glGenBuffers();
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboI);
+		ByteBuffer ibuf = BufferUtils.createByteBuffer(indicies.length);
+		ibuf.put(indicies).flip();
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibuf, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	public void run(long window){
