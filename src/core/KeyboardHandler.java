@@ -45,6 +45,9 @@ public class KeyboardHandler extends GLFWKeyCallback{
 				}
 			}
 			existing.add(l);
+			if (!listeners.containsKey(keyNum)){
+				listeners.put(keyNum, new HashMap<Integer,ArrayList<Listener>>());
+			}
 			listeners.get(keyNum).put(val, existing);
 		}catch(NoSuchMethodException | SecurityException e){e.printStackTrace();}//not possible?
 	}

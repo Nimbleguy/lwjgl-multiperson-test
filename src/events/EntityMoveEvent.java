@@ -8,16 +8,17 @@ import java.lang.annotation.Target;
 import core.Main;
 import entity.Entity;
 
-public class CollisionEvent implements Event{
+public class EntityMoveEvent implements Event{
 
-	Entity e1;
-	Entity e2;
+	Entity entity;
+	boolean cancel;
+	double toX;
+	double toY;
 
-	boolean cancel = false;
-
-	public CollisionEvent(Entity agressor, Entity defender){
-		e1 = agressor;
-		e2 = defender;
+	public EntityMoveEvent(Entity e, double toX, double toY){
+		entity = e;
+		this.toX = toX;
+		this.toY = toY;
 	}
 
 	@Target(ElementType.METHOD)
@@ -42,6 +43,6 @@ public class CollisionEvent implements Event{
 				e.printStackTrace();
 			}
 		}
-		return !isCancelled();
+		return !cancel;
 	}
 }
