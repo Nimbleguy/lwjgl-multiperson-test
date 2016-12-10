@@ -91,8 +91,17 @@ public class Main{
 		KeyboardHandler.registerKeyListener(GLFW_KEY_ESCAPE,new events.Listener(){//keylistener example
 			@Override
 			public void listen(Event e) {
-				if (((events.KeyEvent)e).isPressed())
-					System.out.println("trying to escape");
+				if (((events.KeyEvent)e).isPressed()){
+					System.out.println("Terminating");
+					glfwSetWindowShouldClose(main.win,true);
+				}
+			}
+		});
+		MouseHandler.registerMouseListener(new events.Listener(){
+			@Override
+			public void listen(Event e) {
+				events.MouseEvent ev = (events.MouseEvent) e;
+				System.out.printf("(%f,%f)\n",ev.getX(),ev.getY());
 			}
 		});
 		main = new Main();
