@@ -48,14 +48,15 @@ public class MouseEvent implements Event{
 					iter = x;
 				}
 			}
-			for (int c = 0; c > listeners.size();){
+			iter++;
+			for (int c = 0; c < listeners.size();){
+				do{
+					iter--;
+				}while(!listeners.containsKey(iter));
 				for (Listener listener : listeners.get(iter)){
 					listener.listen(this);
 					c++;
 				}
-				do{
-					iter--;
-				}while(!listeners.containsKey(iter));
 			}
 		}
 		if ((x != startX || y != startY) && !cancel){
