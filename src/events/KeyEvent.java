@@ -22,24 +22,26 @@ public class KeyEvent implements Event{
 	}
 
 	public KeyEvent(int key, boolean isPressed){
-		this.key = key;
-		isDown = isPressed;
-		HashMap<Integer,ArrayList<Listener>> listeners = KeyboardHandler.getKeyListeners(key);
-		if (listeners.size() > 0){
+		if (KeyboardHandler.getKeyListeners().containsKey(key)){
+			this.key = key;
+			isDown = isPressed;
+			HashMap<Integer,ArrayList<Listener>> listeners = KeyboardHandler.getKeyListeners(key);
 			int iter = Integer.MIN_VALUE;
 			for (int x : listeners.keySet()){
 				if (x > iter){
 					iter = x;
 				}
 			}
-			for (int c = 0; c > listeners.size();){
+			
+			iter++;
+			for (int c = 0; c < listeners.size();){
+				do{
+					iter--;
+				}while(!listeners.containsKey(iter));
 				for (Listener listener : listeners.get(iter)){
 					listener.listen(this);
 					c++;
 				}
-				do{
-					iter--;
-				}while(!listeners.containsKey(iter));
 			}
 		}
 	}

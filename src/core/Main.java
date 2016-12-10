@@ -88,6 +88,13 @@ public class Main{
 				System.out.println(((events.KeyEvent)e).isPressed());
 			}
 		});
+		KeyboardHandler.registerKeyListener(GLFW_KEY_ESCAPE,new events.Listener(){//keylistener example
+			@Override
+			public void listen(Event e) {
+				if (((events.KeyEvent)e).isPressed())
+					System.out.println("trying to escape");
+			}
+		});
 		main = new Main();
 	}
 }
